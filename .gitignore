@@ -1,2 +1,4 @@
 /build/
 image.ppm
+/.vscode
+.vscode/settings.json
