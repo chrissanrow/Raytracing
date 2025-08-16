@@ -14,13 +14,13 @@ int main()
 
     auto ground_mat = make_shared<lambertian>(color(0.8, 0.8, 0.0));
     auto center_mat = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    auto metal_left = make_shared<metal>(color(0.8, 0.8, 0.8));
-    auto metal_right = make_shared<metal>(color(0.8, 0.6, 0.2));
+    auto metal_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
+    auto metal_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
 
     world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, ground_mat));
     world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, center_mat));
-    world.add(make_shared<sphere>(point3(-2.0, 0.0, -1.0), 1.0, metal_left));
-    world.add(make_shared<sphere>(point3(2.0, 0.0, -1.0), 1.0, metal_right));
+    world.add(make_shared<sphere>(point3(-2.0, 0.0, -1.5), 1.0, metal_left));
+    world.add(make_shared<sphere>(point3(2.0, 0.0, -1.5), 1.0, metal_right));
 
     camera cam;
 
