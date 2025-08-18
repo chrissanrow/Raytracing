@@ -10,17 +10,19 @@ int main()
 {
     // World
 
-    hittable_list world;
+    hittable_list scene;
 
     auto ground_mat = make_shared<lambertian>(color(0.8, 0.8, 0.0));
     auto center_mat = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    auto metal_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
+    auto glass_mat = make_shared<dielectric>(1.50);
+    auto bubble_mat = make_shared<dielectric>(1.00 / 1.50);
     auto metal_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
 
-    world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, ground_mat));
-    world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, center_mat));
-    world.add(make_shared<sphere>(point3(-2.0, 0.0, -1.5), 1.0, metal_left));
-    world.add(make_shared<sphere>(point3(2.0, 0.0, -1.5), 1.0, metal_right));
+    scene.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, ground_mat));
+    scene.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, center_mat));
+    scene.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.5, glass_mat));
+    scene.add(make_shared<sphere>(point3(-1.0, 0.0, -1.0), 0.4, bubble_mat));
+    scene.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, metal_right));
 
     camera cam;
 
@@ -29,5 +31,5 @@ int main()
     cam.samples_per_pixel = 100;
     cam.max_depth = 50;
 
-    cam.render(world);
+    cam.render(scene);
 }
